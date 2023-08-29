@@ -10,9 +10,20 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portP.settings')
+from whitenoise import WhiteNoise
 
-application = get_wsgi_application()
+from portP import MyWSGIApp
 
-app = application
+
+
+# application = get_wsgi_application()
+
+# app = application
+
+
+
+
+application = MyWSGIApp()
+application = WhiteNoise(application, root="/path/to/static/files")
+application.add_files("/path/to/more/static/files", prefix="more-files/")
